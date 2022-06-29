@@ -53,6 +53,14 @@ struct SnapCarousel <Content: View, T: Identifiable>: View {
                         
                         currentIndex = max(min(currentIndex + Int(roundIndex), list.count - 1), 0)
                         
+                        currentIndex = index
+                    })
+                    .onChanged({ value in
+                        let offsetX = value.translation.width
+                        let progress = -offsetX / width
+                        let roundIndex = progress.rounded()
+                        
+                        index = max(min(currentIndex + Int(roundIndex), list.count - 1), 0)
                     })
             )
         }
